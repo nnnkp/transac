@@ -36,9 +36,9 @@ public class LoginSQLiteHelper extends SQLiteOpenHelper {
     // Database creation sql statement
     private static final String DATABASE_CREATE = "create table "
             + TABLE_USER + "( " + COLUMN_ID
-            + " integer primary key autoincrement, " + COLUMN_USERNAME + " text not null"
-            + COLUMN_EMAIL + " text not null"+ COLUMN_PASSWORD + " text not null"+ COLUMN_MOBILE
-            + " text not null"+COLUMN_ACTIVE+"integer default 0);";
+            + " integer primary key autoincrement, " + COLUMN_USERNAME + " text not null, "
+            + COLUMN_EMAIL + " text not null, "+ COLUMN_PASSWORD + " text not null, "+ COLUMN_MOBILE
+            + " text not null, "+COLUMN_ACTIVE+" integer default 0);";
 
     public LoginSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
