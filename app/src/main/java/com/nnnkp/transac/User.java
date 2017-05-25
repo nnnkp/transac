@@ -8,7 +8,10 @@ public class User {
 
     private long id;
     private String username;
+    private String email;
     private String password;
+    private String mobile;
+    private Boolean isActive;
 
     public long getId() {
         return id;
@@ -26,6 +29,14 @@ public class User {
         this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -34,12 +45,30 @@ public class User {
         this.password = password;
     }
 
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", isActive=" + isActive +
                 '}';
     }
 }
