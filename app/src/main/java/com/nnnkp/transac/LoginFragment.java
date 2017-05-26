@@ -1,6 +1,7 @@
 package com.nnnkp.transac;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,20 +18,21 @@ import java.util.List;
  * Created by npraj1 on 5/23/2017.
  */
 
-public class LoginFragment extends Fragment implements View.OnClickListener{
+public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private EditText etUsername, etPassword;
 
     private UserDataSource userDB;
 
-    private Button signupButton, loginButton;
+    private Button signupButton, loginButton, dbButton;
+
     public LoginFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-      //  return super.onCreateView(inflater, container, savedInstanceState);
-        View view  = inflater.inflate(R.layout.layout_fragment_login, container, false);
+        //  return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.layout_fragment_login, container, false);
 
         etUsername = (EditText) view.findViewById(R.id.et_username);
         etPassword = (EditText) view.findViewById(R.id.et_password);
@@ -40,6 +42,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
 
         loginButton = (Button) view.findViewById(R.id.button_login);
         loginButton.setOnClickListener(this);
+
+        dbButton = (Button) view.findViewById(R.id.button_database);
+        dbButton.setOnClickListener(this);
         // Inflate the layout for this fragment
         return view;
     }
@@ -48,39 +53,47 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
 
-        switch(view.getId()) {
-            case R.id.button_signup :
-                 getActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.login_main_container, new SignupFragment())
-                    .addToBackStack(null)
-                    .commit();
-                break;
-
-            case R.id.button_login :
-
-                if(isAuthenticated()){
+        switch (view.getId()) {
+            case R.id.button_signup:
                 getActivity()
                         .getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.login_main_container, new ProfileFragment())
+                        .replace(R.id.login_main_container, new SignupFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
-                }else{
+
+            case R.id.button_login:
+
+                Boolean isAuthenticated = isAuthenticated();
+                Log.d("PASS", "*isAuth*" + isAuthenticated + "**");
+
+                if (isAuthenticated) {
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.login_main_container, new ProfileFragment())
+                            .addToBackStack(null)
+                            .commit();
+                    break;
+                } else {
                     Toast.makeText(getActivity(), "Invalid Credentials",
                             Toast.LENGTH_LONG).show();
                     break;
                 }
+            case R.id.button_database:
+
+                Intent dbmanager = new Intent(getActivity(), AndroidDatabaseManager.class);
+                startActivity(dbmanager);
+                break;
 
 
         }
     }
 
-    public Boolean isAuthenticated(){
-      String usernameEntered = etUsername.getText().toString();
-      String passwordEntered = etPassword.getText().toString();
+    public Boolean isAuthenticated() {
+        String usernameEntered = etUsername.getText().toString().trim();
+        String passwordEntered = etPassword.getText().toString().trim();
         String passwordInDB = "";
         //context
         userDB = new UserDataSource(getActivity());
@@ -88,17 +101,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
         //isActive = false (Unused in method called)
         List<User> users = userDB.getAllUsers();
 
-        for(User user : users){
-         //   String log = "Username: "+ user.getUsername() +"Password: "+ user.getPassword();
-         //   Log.d("USER:",log);
-            if(user.getUsername() == usernameEntered) {
+        for (User user : users) {
+
+            if (usernameEntered.equalsIgnoreCase(user.getUsername())) {
                 passwordInDB = user.getPassword();
+                break;
             }
         }
-        if(passwordInDB == passwordEntered) {
-            return true;
-        }
 
-        return false;
+        return passwordInDB.equalsIgnoreCase(passwordEntered) ? true : false;
+
     }
 }
