@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,8 @@ public class UserDataSource {
         cursor.close();
         return users;
     }
+
+
 
     private User cursorToUser(Cursor cursor) {
         Boolean isActive = (cursor.getInt(cursor.getColumnIndex("active")) == 1);

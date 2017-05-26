@@ -18,6 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".AndroidDatabaseManager"
+            android:label="@string/app_name"></activity>
     </application>
 
 </manifest>
