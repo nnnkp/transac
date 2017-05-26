@@ -18,7 +18,8 @@ public class UserDataSource {
     private SQLiteDatabase database;
     private LoginSQLiteHelper dbHelper;
     private String[] allColumns = { LoginSQLiteHelper.COLUMN_ID,
-            LoginSQLiteHelper.COLUMN_USERNAME,LoginSQLiteHelper.COLUMN_PASSWORD };
+            LoginSQLiteHelper.COLUMN_USERNAME,LoginSQLiteHelper.COLUMN_EMAIL,
+            LoginSQLiteHelper.COLUMN_PASSWORD,LoginSQLiteHelper.COLUMN_MOBILE,LoginSQLiteHelper.COLUMN_ACTIVE };
 
     public UserDataSource(Context context) {
         dbHelper = new LoginSQLiteHelper(context);
@@ -32,10 +33,13 @@ public class UserDataSource {
         dbHelper.close();
     }
 
-    public User createUser(String username, String password) {
+    public User createUser(String username, String email,String password, String mobile, Boolean isActive) {
         ContentValues values = new ContentValues();
         values.put(LoginSQLiteHelper.COLUMN_USERNAME, username);
+        values.put(LoginSQLiteHelper.COLUMN_EMAIL, email);
         values.put(LoginSQLiteHelper.COLUMN_PASSWORD, password);
+        values.put(LoginSQLiteHelper.COLUMN_MOBILE, mobile);
+      //  values.put(LoginSQLiteHelper.COLUMN_ACTIVE, isActive);
         long insertId = database.insert(LoginSQLiteHelper.TABLE_USER, null,
                 values);
         Cursor cursor = database.query(LoginSQLiteHelper.TABLE_USER,
@@ -47,8 +51,8 @@ public class UserDataSource {
         return newUser;
     }
 
-    public void deleteUser(User User) {
-        long id = User.getId();
+    public void deleteUser(User user) {
+        long id = user.getId();
         System.out.println("User deleted with id: " + id);
         database.delete(LoginSQLiteHelper.TABLE_USER, LoginSQLiteHelper.COLUMN_ID
                 + " = " + id, null);
@@ -72,11 +76,15 @@ public class UserDataSource {
     }
 
     private User cursorToUser(Cursor cursor) {
-        User User = new User();
-        User.setId(cursor.getLong(0));
-        User.setUsername(cursor.getString(1));
-        User.setPassword(cursor.getString(2));
-        return User;
+        Boolean isActive = (cursor.getInt(cursor.getColumnIndex("active")) == 1);
+        User user = new User();
+        user.setId(cursor.getLong(0));
+        user.setUsername(cursor.getString(1));
+        user.setEmail(cursor.getString(2));
+        user.setPassword(cursor.getString(3));
+        user.setMobile(cursor.getString(4));
+        user.setActive(isActive);
+        return user;
     }
 }
 
