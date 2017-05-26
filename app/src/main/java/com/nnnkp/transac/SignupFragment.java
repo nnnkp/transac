@@ -51,9 +51,9 @@ public class SignupFragment extends Fragment implements View.OnClickListener{
 
     private void addUserToDB(){
         String username = etUsername.getText().toString();
-        String email = etUsername.getText().toString();
-        String password = etUsername.getText().toString();
-        String mobile = etUsername.getText().toString();
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+        String mobile = etMobile.getText().toString();
 
         //context
         userDB = new UserDataSource(getActivity());

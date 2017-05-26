@@ -13,6 +13,7 @@
         android:paddingRight="24dp">
 
         <ImageView android:src="@drawable/ic_transac"
+            android:id="@+id/img_transac_icon"
             android:layout_width="wrap_content"
             android:layout_height="72dp"
             android:layout_marginBottom="24dp"
