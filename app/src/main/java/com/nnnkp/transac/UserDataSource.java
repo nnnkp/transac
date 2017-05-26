@@ -80,9 +80,9 @@ public class UserDataSource {
         User user = new User();
         user.setId(cursor.getLong(0));
         user.setUsername(cursor.getString(1));
-        user.setEmail(cursor.getString(1));
-        user.setPassword(cursor.getString(2));
-        user.setMobile(cursor.getString(3));
+        user.setEmail(cursor.getString(2));
+        user.setPassword(cursor.getString(3));
+        user.setMobile(cursor.getString(4));
         user.setActive(isActive);
         return user;
     }
