@@ -81,10 +81,10 @@ public class TransactionDataSource {
         Transaction transaction = new Transaction();
         transaction.setId(cursor.getLong(0));
         transaction.setClientName(cursor.getString(1));
-        transaction.setAmount(cursor.getString(2));
+        transaction.setAmount(cursor.getInt(2));
         transaction.setType(cursor.getString(3));
         transaction.setRemarks(cursor.getString(4));
-      //  transaction.setDate(cursor.getLong(5));
+        transaction.setDate(cursor.getString(5));
         return transaction;
     }
 }

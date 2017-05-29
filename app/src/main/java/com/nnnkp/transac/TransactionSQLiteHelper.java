@@ -16,7 +16,7 @@ public class TransactionSQLiteHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_TRANSACTION = "transactions";
     public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_CLIENTNAME = "clientName";
+    public static final String COLUMN_CLIENTNAME = "clientname";
     public static final String COLUMN_AMOUNT = "amount";
     public static final String COLUMN_TYPE = "type";
     public static final String COLUMN_REMARKS = "remarks";

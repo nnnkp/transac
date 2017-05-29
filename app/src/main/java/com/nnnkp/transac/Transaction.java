@@ -10,7 +10,7 @@ public class Transaction {
 
     private long id;
     private String clientName;
-    private String amount;
+    private int amount;
     private String type;
     private String remarks;
     private String date;
@@ -31,11 +31,11 @@ public class Transaction {
         this.clientName = clientName;
     }
 
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
